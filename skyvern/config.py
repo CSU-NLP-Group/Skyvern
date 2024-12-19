@@ -125,6 +125,37 @@ class Settings(BaseSettings):
 
     SVG_MAX_LENGTH: int = 100000
 
+    # 代理设置
+    # 代理设置
+    PROXY_ENABLED: bool = False
+    PROXY_SERVER: str | None = None  # 例如: "http://proxy.example.com:8080"
+    PROXY_USERNAME: str | None = None
+    PROXY_PASSWORD: str | None = None
+    PROXY_BYPASS: str | None = None  # 例如: "*.google.com,*.githubusercontent.com"
+
+    def get_proxy_config(self) -> dict | None:
+        """
+        获取代理配置
+        """
+        if not self.PROXY_ENABLED or not self.PROXY_SERVER:
+            return None
+            
+        proxy_config = {
+            "server": self.PROXY_SERVER
+        }
+        
+        if self.PROXY_USERNAME and self.PROXY_PASSWORD:
+            proxy_config.update({
+                "username": self.PROXY_USERNAME,
+                "password": self.PROXY_PASSWORD
+            })
+            
+        if self.PROXY_BYPASS:
+            proxy_config["bypass"] = self.PROXY_BYPASS
+            
+        return proxy_config
+
+
     def is_cloud_environment(self) -> bool:
         """
         :return: True if env is not local, else False
