@@ -13,7 +13,7 @@ from playwright.async_api import BrowserContext, Error, Page, Playwright, async_
 from pydantic import BaseModel
 
 from skyvern.config import settings
-from skyvern.constants import REPO_ROOT_DIR
+from skyvern.constants import REPO_ROOT_DIR, SKYVERN_DIR
 from skyvern.exceptions import (
     FailedToNavigateToUrl,
     FailedToReloadPage,
@@ -63,8 +63,33 @@ class BrowserContextFactory:
     def build_browser_args() -> dict[str, Any]:
         video_dir = f"{SettingsManager.get_settings().VIDEO_PATH}/{datetime.utcnow().strftime('%Y-%m-%d')}"
         har_dir = f"{SettingsManager.get_settings().HAR_PATH}/{datetime.utcnow().strftime('%Y-%m-%d')}/{BrowserContextFactory.get_subdir()}.har"
+        extensions_dir = f"{REPO_ROOT_DIR}/chrome-context/extensions/yesCaptcha"
+        # return {
+        #     "user_data_dir": tempfile.mkdtemp(prefix="skyvern_browser_"),
+        #     "locale": SettingsManager.get_settings().BROWSER_LOCALE,
+        #     "timezone_id": SettingsManager.get_settings().BROWSER_TIMEZONE,
+        #     "color_scheme": "no-preference",
+        #     "args": [
+        #         "--disable-blink-features=AutomationControlled",
+        #         "--disk-cache-size=1",
+        #         "--start-maximized",
+        #         "--kiosk-printing",
+        #     ],
+        #     "ignore_default_args": [
+        #         "--enable-automation",
+        #     ],
+        #     "record_har_path": har_dir,
+        #     "record_video_dir": video_dir,
+        #     "viewport": {
+        #         "width": settings.BROWSER_WIDTH,
+        #         "height": settings.BROWSER_HEIGHT,
+        #     },
+        # }
+
+        # 固定用户目录为"/chrome-context/user_data""
+        user_data_dir = f"{REPO_ROOT_DIR}/chrome-context/user_data"
         return {
-            "user_data_dir": tempfile.mkdtemp(prefix="skyvern_browser_"),
+            "user_data_dir": user_data_dir,
             "locale": SettingsManager.get_settings().BROWSER_LOCALE,
             "timezone_id": SettingsManager.get_settings().BROWSER_TIMEZONE,
             "color_scheme": "no-preference",
@@ -73,6 +98,8 @@ class BrowserContextFactory:
                 "--disk-cache-size=1",
                 "--start-maximized",
                 "--kiosk-printing",
+                f"--disable-extensions-except={extensions_dir}",
+                f"--load-extension={extensions_dir}"
             ],
             "ignore_default_args": [
                 "--enable-automation",
@@ -163,6 +190,8 @@ async def _create_headful_chromium(
     )
     browser_artifacts = BrowserContextFactory.build_browser_artifacts(har_path=browser_args["record_har_path"])
     browser_context = await playwright.chromium.launch_persistent_context(**browser_args)
+
+
     return browser_context, browser_artifacts, None
 
 
