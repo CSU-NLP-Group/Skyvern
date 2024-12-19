@@ -1,6 +1,6 @@
 import { getClient } from "@/api/AxiosClient";
 import { TaskGenerationApiResponse } from "@/api/types";
-import img from "@/assets/promptBoxBg.png";
+// import img from "@/assets/promptBoxBg.png";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { useCredentialGetter } from "@/hooks/useCredentialGetter";
@@ -43,48 +43,48 @@ function createTemplateTaskFromTaskGenerationParameters(
   };
 }
 
-const exampleCases = [
-  {
-    key: "finditparts",
-    label: "Find a product and add it to cart",
-  },
-  {
-    key: "geico",
-    label: "Generate an insurance quote",
-  },
-  {
-    key: "job_application",
-    label: "Apply to a job",
-  },
-  {
-    key: "california_edd",
-    label: "Fill an online enrollment form",
-  },
-  {
-    key: "contact_us_forms",
-    label: "Fill a contact us form",
-  },
-  {
-    key: "bci_seguros",
-    label: "Generate an auto insurance quote in spanish",
-  },
-  {
-    key: "hackernews",
-    label: "Get the top post on Hackernews",
-  },
-  {
-    key: "AAPLStockPrice",
-    label: "Get the stock price of AAPL",
-  },
-  {
-    key: "NYTBestseller",
-    label: "Get the top NYT bestseller",
-  },
-  {
-    key: "topRankedFootballTeam",
-    label: "Get the top ranked football team",
-  },
-];
+// const exampleCases = [
+//   {
+//     key: "finditparts",
+//     label: "Find a product and add it to cart",
+//   },
+//   {
+//     key: "geico",
+//     label: "Generate an insurance quote",
+//   },
+//   {
+//     key: "job_application",
+//     label: "Apply to a job",
+//   },
+//   {
+//     key: "california_edd",
+//     label: "Fill an online enrollment form",
+//   },
+//   {
+//     key: "contact_us_forms",
+//     label: "Fill a contact us form",
+//   },
+//   {
+//     key: "bci_seguros",
+//     label: "Generate an auto insurance quote in spanish",
+//   },
+//   {
+//     key: "hackernews",
+//     label: "Get the top post on Hackernews",
+//   },
+//   {
+//     key: "AAPLStockPrice",
+//     label: "Get the stock price of AAPL",
+//   },
+//   {
+//     key: "NYTBestseller",
+//     label: "Get the top NYT bestseller",
+//   },
+//   {
+//     key: "topRankedFootballTeam",
+//     label: "Get the top ranked football team",
+//   },
+// ];
 
 function PromptBox() {
   const navigate = useNavigate();
@@ -139,12 +139,13 @@ function PromptBox() {
 
   return (
     <div>
-      <div
+      {/* <div
         className="rounded-sm py-[4.25rem]"
         style={{
           background: `url(${img}) 50% / cover no-repeat`,
         }}
-      >
+      > */}
+      <div className="rounded-sm py-[4.25rem]">
         <div className="flex flex-col items-center gap-7">
           <span className="text-2xl">
             What task would you like to accomplish?
@@ -180,7 +181,7 @@ function PromptBox() {
           </div>
         </div>
       </div>
-      <div className="flex flex-wrap justify-center gap-4 rounded-sm bg-slate-elevation1 p-4">
+      {/* <div className="flex flex-wrap justify-center gap-4 rounded-sm bg-slate-elevation1 p-4">
         {exampleCases.map((example) => {
           return (
             <div
@@ -194,7 +195,7 @@ function PromptBox() {
             </div>
           );
         })}
-      </div>
+      </div> */}
     </div>
   );
 }

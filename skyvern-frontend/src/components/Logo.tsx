@@ -1,5 +1,5 @@
 function Logo() {
-  const src = "/logo.png";
+  const src = "/csu01.png";
   return <img src={src} alt="Logo" />;
 }
 

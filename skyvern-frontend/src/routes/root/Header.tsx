@@ -1,6 +1,8 @@
-import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import GitHubButton from "react-github-btn";
-import { Link, useMatch } from "react-router-dom";
+// import { DiscordLogoIcon } from "@radix-ui/react-icons";
+// import GitHubButton from "react-github-btn";
+// import { Link, useMatch } from "react-router-dom";
+
+import { useMatch } from "react-router-dom";
 
 function Header() {
   const match = useMatch("/workflows/:workflowPermanentId/edit");
@@ -12,7 +14,7 @@ function Header() {
   return (
     <header>
       <div className="flex h-24 items-center justify-end gap-4 px-6">
-        <Link
+        {/* <Link
           to="https://discord.com/invite/fG2XXEuQX3"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,7 +31,7 @@ function Header() {
           >
             Star
           </GitHubButton>
-        </div>
+        </div> */}
       </div>
     </header>
   );
